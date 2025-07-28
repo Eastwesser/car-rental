@@ -8,7 +8,7 @@
     "demo": {
       "architect": {
         "build": {
-          "builder": "@angular/build:application",
+          "builder": "@angular-devkit/build-angular:browser", 
           "configurations": {
             "development": {
               "extractLicenses": false,
@@ -26,6 +26,7 @@
             }
           },
           "options": {
+            "main": "src/main.ts",
             "assets": [
               "src/favicon.ico",
               "src/assets",
@@ -35,8 +36,10 @@
                 "output": "/"
               }
             ],
-            "index": "src/index.html",
-            "browser": "src/main.ts",
+            "index": {
+              "input": "src/index.html",
+              "output": "index.html"
+            },
             "outputPath": "dist/car-rental",
             "polyfills": ["zone.js"],
             "scripts": [],
