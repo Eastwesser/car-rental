@@ -26,7 +26,15 @@
             }
           },
           "options": {
-            "assets": [{"glob": "**/*", "input": "public"}],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "public",
+                "output": "/"
+              }
+            ],
             "index": "src/index.html",
             "browser": "src/main.ts",
             "outputPath": "dist/car-rental",

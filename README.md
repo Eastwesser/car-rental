@@ -16,6 +16,11 @@ docker-compose up --build
 docker-compose up --build backend
 # only frontend
 docker-compose up --build frontend
+
+# CLEANUP
+docker-compose down -v
+docker builder prune -af
+docker system prune -af
 ```
 
 2. Or try makefiles!
