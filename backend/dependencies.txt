@@ -1,0 +1,17 @@
+go get github.com/go-chi/chi/v5
+go get github.com/go-chi/chi/v5/middleware
+go get github.com/go-chi/cors
+
+Angular can make requests to:
+
+    GET http://localhost:8080/api/cars
+
+    GET http://localhost:8080/api/cars?filter=BMW
+
+    POST http://localhost:8080/api/orders
+
+Pictures available at:
+
+    http://localhost:8080/images/cars/1.png
+
+    http://localhost:8080/images/cars/12.png
