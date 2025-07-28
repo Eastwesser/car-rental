@@ -64,7 +64,7 @@ export class CarsComponent {
 
   getCars(filter: string) {
     this.http
-      .get('http://localhost:8080/api/cars', { params: { filter: filter } })
+      .get('/api/cars', { params: { filter: filter } })
       .subscribe((data) => (this.cars = data));
   }
 
@@ -85,7 +85,7 @@ export class CarsComponent {
   sendOrder() {
     if (this.orderForm.valid) {
       this.http
-        .post('http://localhost:8080/api/orders', this.orderForm.value)
+        .post('/api/orders', this.orderForm.value)
         .subscribe({
           next: (response: any) => {
             alert(response.message);

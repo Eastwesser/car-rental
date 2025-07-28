@@ -29,6 +29,11 @@ make full
 
 Backend (http://localhost:8080) can be accessed via: [http://localhost:8080/api/cars]
 
+```curl
+curl http://localhost:8080/api/cars
+curl http://localhost:8080/api/cars?filter=BMW
+```
+
 Frontend (http://localhost:3000) can be checked here: [http://localhost]
 
 Enjoy, Go + Angular := fullstack!!! 

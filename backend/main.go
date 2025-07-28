@@ -131,7 +131,7 @@ func main() {
 	r.Use(middleware.Logger)
 
 	r.Use(cors.Handler(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:4200"}, // URL Angular-приложения
+		AllowedOrigins:   []string{"http://localhost:3000", "http://localhost:4200"}, // URL Angular-приложения
 		AllowedMethods:   []string{"GET", "POST"},
 		AllowedHeaders:   []string{"Content-Type"},
 		AllowCredentials: true,
