@@ -1,16 +1,9 @@
-docker-compose down
-docker-compose up --build
+.PHONY: run-backend
+run-backend:
+	docker-compose down
+	docker-compose up --build backend
 
-Publish:
-docker build -t eastwesser/car-rental-backend ./backend
-docker build -t eastwesser/car-rental-frontend ./frontend
-
-After - change in services:
-services:
-  backend:
-    image: eastwesser/car-rental-backend
-    # ...
-  
-  frontend:
-    image: eastwesser/car-rental-frontend
-    # ...
+.PHONY: run-full
+run-full:
+	docker-compose down
+	docker-compose up --build

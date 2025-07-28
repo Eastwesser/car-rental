@@ -20,8 +20,8 @@ OR To run the project locally, try makefiles!
 
 This will run both backend and frontend.
 
-Back can be accessed via: <>
+Backend can be accessed via: [http://localhost:8080/api/cars]
 
-Frontend can be checked here: http://localhost
+Frontend can be checked here: [http://localhost]
 
 Enjoy, Go + Angular := fullstack!!! 
