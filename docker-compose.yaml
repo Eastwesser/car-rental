@@ -1,9 +1,8 @@
-version: '3.8'
-
 services:
   backend:
-    # image: eastwesser/car-rental-backend
-    build: ./backend
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
     ports:
       - "8080:8080"
     volumes:
@@ -12,9 +11,10 @@ services:
       - PORT=8080
 
   frontend:
-    # image: eastwesser/car-rental-frontend
-    build: ./frontend
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
     ports:
-      - "80:80"
+      - "3000:80"
     depends_on:
       - backend

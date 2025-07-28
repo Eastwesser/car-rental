@@ -10,18 +10,25 @@
 
 1. Build and run with Docker:
 ```bash
+# full project
 docker-compose up --build
+# only backend
+docker-compose up --build backend
+# only frontend
+docker-compose up --build frontend
 ```
 
-OR To run the project locally, try makefiles!
-
-```make car
+2. Or try makefiles!
+```makefile
+make backend
+make frontend
+make full
 ```
 
-This will run both backend and frontend.
+3. This will run both backend and frontend.
 
-Backend can be accessed via: [http://localhost:8080/api/cars]
+Backend (http://localhost:8080) can be accessed via: [http://localhost:8080/api/cars]
 
-Frontend can be checked here: [http://localhost]
+Frontend (http://localhost:3000) can be checked here: [http://localhost]
 
 Enjoy, Go + Angular := fullstack!!! 

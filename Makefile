@@ -1,9 +1,9 @@
-.PHONY: run-backend
-run-backend:
+.PHONY: backend
+backend:
 	docker-compose down
 	docker-compose up --build backend
 
-.PHONY: run-full
-run-full:
+.PHONY: full
+full:
 	docker-compose down
 	docker-compose up --build

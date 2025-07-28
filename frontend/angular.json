@@ -29,12 +29,12 @@
             "assets": [{"glob": "**/*", "input": "public"}],
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "outputPath": "dist/demo",
+            "outputPath": "dist/car-rental",
             "polyfills": ["zone.js"],
             "scripts": [],
             "styles": ["src/global_styles.css"],
             "tsConfig": "tsconfig.app.json",
-            "baseHref": "/cars/",
+            "baseHref": "/"
           }
         },
         "serve": {
