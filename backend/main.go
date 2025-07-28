@@ -1,7 +1,9 @@
 package main
 
 import (
+	"database/sql"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -10,6 +12,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
+	_ "github.com/lib/pq" 
 )
 
 type Car struct {
@@ -126,7 +129,50 @@ var cars = []Car{
 	},
 }
 
+var db *sql.DB
+
+func initDB() {
+	var err error
+	connStr := fmt.Sprintf("user=%s dbname=%s password=%s host=%s sslmode=disable",
+        os.Getenv("DB_USER"),
+        os.Getenv("DB_NAME"),
+        os.Getenv("DB_PASSWORD"),
+        os.Getenv("DB_HOST"),
+    )
+	db, err = sql.Open("postgres", connStr)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Test the connection
+	err = db.Ping()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Create orders table if not exists
+	_, err = db.Exec(`
+		CREATE TABLE IF NOT EXISTS orders (
+			id SERIAL PRIMARY KEY,
+			car TEXT NOT NULL,
+			name TEXT NOT NULL,
+			phone TEXT NOT NULL,
+			created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+		)
+	`)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	log.Println("Connected to PostgreSQL")
+}
+
+
 func main() {
+	// Initialize database
+	initDB()
+	defer db.Close()
+
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 
@@ -174,8 +220,15 @@ func main() {
 			return
 		}
 
-		// Здесь должна быть логика сохранения в БД
-		log.Printf("New order: %+v\n", order)
+		// Save to database
+		_, err := db.Exec(
+			"INSERT INTO orders (car, name, phone) VALUES ($1, $2, $3)",
+			order.Car, order.Name, order.Phone,
+		)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(map[string]string{

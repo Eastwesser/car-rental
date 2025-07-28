@@ -1,4 +1,22 @@
+version: '3.8'
+
 services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: luxury
+      POSTGRES_DB: carsharing
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d carsharing"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   backend:
     build:
       context: .
@@ -9,6 +27,19 @@ services:
       - ./backend/images:/app/images
     environment:
       - PORT=8080
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_PASSWORD=luxury
+      - DB_NAME=carsharing
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: on-failure
+    healthcheck:
+      test: ["CMD-SHELL", "wget --spider http://localhost:8080/api/cars || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   frontend:
     build:
@@ -17,4 +48,9 @@ services:
     ports:
       - "3000:80"
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
+    restart: on-failure
+
+volumes:
+  postgres_data:

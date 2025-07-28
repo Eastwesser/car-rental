@@ -45,7 +45,8 @@
             "scripts": [],
             "styles": ["src/global_styles.css"],
             "tsConfig": "tsconfig.app.json",
-            "baseHref": "/"
+            "baseHref": "/",
+            "deployUrl": "/"
           }
         },
         "serve": {

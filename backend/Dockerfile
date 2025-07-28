@@ -1,23 +1,26 @@
-# Build stage - Updated to Go 1.24.2
+# Build stage
 FROM golang:1.24-alpine AS builder
 WORKDIR /app
-
-# Copy only module files first for better caching
 COPY go.mod go.sum ./
 RUN go mod download
-
-# Copy backend source code
-COPY backend/ ./backend
-
-# Build
+COPY . .
 WORKDIR /app/backend
 RUN CGO_ENABLED=0 GOOS=linux go build -o backend .
 
 # Final stage
 FROM alpine:latest
 WORKDIR /app
+
+# Copy wait-for-it.sh FIRST
+COPY backend/wait-for-it.sh .
+RUN chmod +x wait-for-it.sh
+
+# Then copy other files
 COPY --from=builder /app/backend/backend .
 COPY --from=builder /app/backend/images ./images
 
+# Install dependencies
+RUN apk add --no-cache bash postgresql-client
+
 EXPOSE 8080
-CMD ["./backend"]
+CMD ["./wait-for-it.sh", "db", "5432", "postgres", "luxury", "carsharing", "--", "./backend"]
