@@ -1,5 +1,26 @@
 # Car Rental App
 
+## System Requirements
+- Docker 20.10+
+- Docker Compose 2.0+
+- (Optional for local development):
+  - Go 1.24+ (for backend development)
+  - Node.js 20+ and Angular CLI (for frontend development)
+
+## Windows Setup Guide
+
+1. **Install Prerequisites**:
+   - Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+   - Enable WSL2 backend (recommended) during installation
+
+2. **First-Time Setup**:
+
+```bash
+# Clone the repository
+git clone https://github.com/eastwesser/carsharing-go.git
+cd carsharing-go
+``` 
+
 ## Project Structure
 
 - `backend/`: Go server with API endpoints
