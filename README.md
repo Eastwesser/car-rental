@@ -30,8 +30,6 @@ docker system prune -af
 
 2. Or try makefiles:
 ```makefile
-make backend
-make frontend
 make full
 ```
 
