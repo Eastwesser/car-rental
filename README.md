@@ -36,7 +36,7 @@ Backend (http://localhost:8080) can be accessed via: [http://localhost:8080/api/
 
 ```curl
 curl http://localhost:8080/api/cars
-curl http://localhost:8080/api/cars?filter=BMW
+curl http://localhost:8080/api/cars?filter=Lamborghini
 ```
 
 4. Database connection:

@@ -4,8 +4,8 @@ WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
 COPY . .
-WORKDIR /app/backend
-RUN CGO_ENABLED=0 GOOS=linux go build -o backend .
+WORKDIR /app/backend/cmd
+RUN CGO_ENABLED=0 GOOS=linux go build -o /app/backend-binary .
 
 # Final stage
 FROM alpine:latest
@@ -15,8 +15,8 @@ WORKDIR /app
 COPY backend/wait-for-it.sh .
 RUN chmod +x wait-for-it.sh
 
-# Then copy other files
-COPY --from=builder /app/backend/backend .
+# Then copy the binary
+COPY --from=builder /app/backend-binary ./backend
 COPY --from=builder /app/backend/images ./images
 
 # Install dependencies
