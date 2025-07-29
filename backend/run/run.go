@@ -24,6 +24,7 @@ func Run() error {
 
     // Initialize layers
     orderRepo := repository.NewOrderRepository(db)
+    
     carService := usecase.NewCarService()
     orderService := usecase.NewOrderService(orderRepo)
     

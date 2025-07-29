@@ -21,8 +21,7 @@ func NewRouter(
         AllowCredentials: true,
     }))
 
-    r.Handle("/images/*", 
-        http.StripPrefix("/images/", http.FileServer(http.Dir("./images")))) // Fixed missing parenthesis
+    r.Handle("/images/*", http.StripPrefix("/images/", http.FileServer(http.Dir("./images"))))
 
     r.Get("/api/cars", carHandler.GetCars)
     r.Post("/api/orders", orderHandler.CreateOrder)
