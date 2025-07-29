@@ -23,14 +23,14 @@ docker builder prune -af
 docker system prune -af
 ```
 
-2. Or try makefiles!
+2. Or try makefiles:
 ```makefile
 make backend
 make frontend
 make full
 ```
 
-3. This will run both backend and frontend.
+3. This will run both backend and frontend:
 
 Backend (http://localhost:8080) can be accessed via: [http://localhost:8080/api/cars]
 
@@ -39,6 +39,24 @@ curl http://localhost:8080/api/cars
 curl http://localhost:8080/api/cars?filter=BMW
 ```
 
-Frontend (http://localhost:3000) can be checked here: [http://localhost]
+4. Database connection:
+
+```bash
+# Check active containers (779793098e50):
+docker ps
+
+# Enter postgres:
+docker exec -it 779793098e50 psql -U postgres -d carsharing
+
+# List all tables:
+\dt
+```
+
+SQL
+```sql
+SELECT * FROM orders ORDER BY created_at DESC LIMIT 5;
+```
+
+Frontend can be checked here: [http://localhost:3000]
 
 Enjoy, Go + Angular := fullstack!!! 
