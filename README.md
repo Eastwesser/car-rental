@@ -60,6 +60,18 @@ SQL
 SELECT * FROM orders ORDER BY created_at DESC LIMIT 5;
 ```
 
+## Tests:
+```bash
+# Run tests with coverage and save to file
+go test ./... -coverprofile=coverage.out
+
+# View coverage report in terminal
+go tool cover -func=coverage.out
+
+# For a quick summary:
+go test ./... -cover
+```
+
 Frontend can be checked here: [http://localhost:3000]
 
 Enjoy, Go + Angular := fullstack!!! 

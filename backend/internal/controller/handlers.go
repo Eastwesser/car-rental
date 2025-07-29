@@ -32,16 +32,31 @@ func NewOrderHandler(orderService usecase.OrderService) *OrderHandler {
 }
 
 func (h *OrderHandler) CreateOrder(w http.ResponseWriter, r *http.Request) {
-    var order struct {
-        Car   string `json:"car"`
-        Name  string `json:"name"`
-        Phone string `json:"phone"`
-    }
-    
-    if err := json.NewDecoder(r.Body).Decode(&order); err != nil {
-        http.Error(w, err.Error(), http.StatusBadRequest)
-        return
-    }
+    // Check for empty body first
+	if r.Body == nil {
+		http.Error(w, "Request body is required", http.StatusBadRequest)
+		return
+	}
+
+	var order struct {
+		Car   string `json:"car"`
+		Name  string `json:"name"`
+		Phone string `json:"phone"`
+	}
+
+    decoder := json.NewDecoder(r.Body)
+	decoder.DisallowUnknownFields()
+	
+	if err := decoder.Decode(&order); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+    // Validate required fields
+	if order.Car == "" || order.Name == "" || order.Phone == "" {
+		http.Error(w, "All fields (car, name, phone) are required", http.StatusBadRequest)
+		return
+	}
 
     if err := h.orderService.CreateOrder(order.Car, order.Name, order.Phone); err != nil {
         http.Error(w, err.Error(), http.StatusInternalServerError)

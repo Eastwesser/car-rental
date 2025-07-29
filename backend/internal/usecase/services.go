@@ -22,18 +22,25 @@ func NewCarService() CarService {
 }
 
 func (s *carService) GetCars(filter string) []entity.Car {
-    filter = strings.ToLower(filter)
-    if filter == "" || filter == "все марки" {
-        return entity.Cars
-    }
-    
-    var result []entity.Car
-    for _, car := range entity.Cars {
-        if strings.Contains(strings.ToLower(car.Title), filter) || strings.ToLower(car.Brand) == filter {
-            result = append(result, car)
-        }
-    }
-    return result
+	// Always return at least an empty slice
+	result := make([]entity.Car, 0)
+
+	filter = strings.ToLower(filter)
+	if entity.Cars == nil {
+		return result
+	}
+
+	if filter == "" || filter == "все марки" {
+		return append(result, entity.Cars...)
+	}
+
+	for _, car := range entity.Cars {
+		if strings.Contains(strings.ToLower(car.Title), filter) || 
+		   strings.ToLower(car.Brand) == filter {
+			result = append(result, car)
+		}
+	}
+	return result
 }
 
 type orderService struct {

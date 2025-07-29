@@ -29,3 +29,5 @@ vendor/
 # Frontend
 /frontend/node_modules
 /frontend/dist
+
+coverage.out
