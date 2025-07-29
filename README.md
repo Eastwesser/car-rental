@@ -6,6 +6,11 @@
 - `frontend/`: Angular frontend application
 - `docker-compose.yaml`: Docker configuration
 
+## Ports
+- `Frontend`: carsharing-go-frontend-1 (port 3000)
+- `Backend`: carsharing-go-backend-1 (port 8080)
+- `Database`: carsharing-go-db-1 (port 5432)
+
 ## Setup
 
 1. Build and run with Docker:
