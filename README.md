@@ -47,8 +47,10 @@ carsharing-go/
 │   │   │   └── models.go
 │   │   ├── repository/
 │   │   │   └── repo.go
-│   │   └── usecase/
-│   │       └── services.go
+│   │   ├── usecase/
+│   │   │   └── services.go
+│   │   └── run/
+│   │       └── run.go
 │   ├── images/
 │   │   └── cars/
 │   │       ├── 1.png
@@ -69,11 +71,14 @@ carsharing-go/
 │   │   └── index.html
 │   ├── nginx.conf
 │   ├── Dockerfile
-│   └── package.json
+│   ├── package.json
+│   └── proxy.conf.json
 │
 ├── docker-compose.yaml
 ├── Makefile
+├── make.bat
 ├── go.mod
+├── go.sum
 └── README.md
 ```
 
