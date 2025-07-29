@@ -17,10 +17,6 @@
 ```bash
 # full project
 docker-compose up --build
-# only backend
-docker-compose up --build backend
-# only frontend
-docker-compose up --build frontend
 
 # CLEANUP
 docker-compose down -v
@@ -30,7 +26,7 @@ docker system prune -af
 
 2. Or try makefiles:
 ```makefile
-make full
+make cars
 ```
 
 3. This will run both backend and frontend:
@@ -49,7 +45,7 @@ curl http://localhost:8080/api/cars?filter=Lamborghini
 docker ps
 
 # Enter postgres:
-docker exec -it 779793098e50 psql -U postgres -d carsharing
+docker exec -it 96d43f90556e psql -U postgres -d carsharing
 
 # List all tables:
 \dt
