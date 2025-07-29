@@ -7,9 +7,15 @@
 - `docker-compose.yaml`: Docker configuration
 
 ## Ports
+
 - `Frontend`: carsharing-go-frontend-1 (port 3000)
 - `Backend`: carsharing-go-backend-1 (port 8080)
 - `Database`: carsharing-go-db-1 (port 5432)
+
+## Routes
+
+- `Get cars`: api/v1/getcars
+- `Make order`: api/v1/order
 
 ## Setup
 
@@ -18,20 +24,22 @@
 # full project
 docker-compose up --build
 
+# Or try makefiles:
+make cars
+
 # CLEANUP
 docker-compose down -v
 docker builder prune -af
 docker system prune -af
 ```
 
-2. Or try makefiles:
-```makefile
-make cars
-```
+2. `make cars` will run both backend and frontend:
 
-3. This will run both backend and frontend:
+- Backend can be accessed via: [http://localhost:8080/api/cars]
 
-Backend (http://localhost:8080) can be accessed via: [http://localhost:8080/api/cars]
+- Frontend can be checked here: [http://localhost:3000]
+
+3. cURL:
 
 ```curl
 curl http://localhost:8080/api/cars
@@ -45,18 +53,20 @@ curl http://localhost:8080/api/cars?filter=Lamborghini
 docker ps
 
 # Enter postgres:
-docker exec -it 96d43f90556e psql -U postgres -d carsharing
+docker exec -it 779793098e50 psql -U postgres -d carsharing
 
 # List all tables:
 \dt
 ```
 
-SQL
+5. SQL:
+
 ```sql
 SELECT * FROM orders ORDER BY created_at DESC LIMIT 5;
 ```
 
 ## Tests:
+
 ```bash
 # Run tests with coverage and save to file
 go test ./... -coverprofile=coverage.out
@@ -68,6 +78,21 @@ go tool cover -func=coverage.out
 go test ./... -cover
 ```
 
-Frontend can be checked here: [http://localhost:3000]
+## DockerHub updates:
 
-Enjoy, Go + Angular := fullstack!!! 
+Run these commands from root directory where docker-compose is:
+
+```bash
+# Login to Docker Hub
+docker login
+
+# Build and push backend
+docker build -t eastwesser/carsharing-backend -f backend/Dockerfile .
+docker push eastwesser/carsharing-backend
+
+# Build and push frontend
+docker build -t eastwesser/carsharing-frontend -f frontend/Dockerfile ./frontend
+docker push eastwesser/carsharing-frontend
+```
+
+Enjoy, Go (Chi) + TS (Angular) := fullstack!!! 

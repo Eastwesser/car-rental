@@ -11,16 +11,14 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o /app/backend-binary .
 FROM alpine:latest
 WORKDIR /app
 
-# Copy wait-for-it.sh FIRST
+# Install dependencies first for better caching
+RUN apk add --no-cache bash postgresql-client
+
+# Copy wait-for-it.sh and binary
 COPY backend/wait-for-it.sh .
 RUN chmod +x wait-for-it.sh
-
-# Then copy the binary
 COPY --from=builder /app/backend-binary ./backend
 COPY --from=builder /app/backend/images ./images
-
-# Install dependencies
-RUN apk add --no-cache bash postgresql-client
 
 EXPOSE 8080
 CMD ["./wait-for-it.sh", "db", "5432", "postgres", "luxury", "carsharing", "--", "./backend"]
