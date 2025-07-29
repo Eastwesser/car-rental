@@ -1,5 +1,8 @@
 # Car Rental App
 
+Premium car sharing service offering exclusive vehicles from Lamborghini to Ferrari. 
+Book your dream car in 3 simple steps.
+
 ## System Requirements
 - Docker 20.10+
 - Docker Compose 2.0+
@@ -33,10 +36,52 @@ cd carsharing-go
 - `Backend`: carsharing-go-backend-1 (port 8080)
 - `Database`: carsharing-go-db-1 (port 5432)
 
-## Routes
+## API Endpoints (Routes For Frontend Developers)
 
-- `Get cars`: api/v1/getcars
-- `Make order`: api/v1/order
+- Base URL: http://localhost:8080/api
+
+| Method    | Endpoint       | Parameters           | Description                          | Example                          |
+|-----------|----------------|----------------------|--------------------------------------|----------------------------------|
+| **GET**   | `/api/cars`    | `?filter={brand}`    | Get all cars (or with brand filter)  | `/api/cars?filter=Lamborghini`   |
+| **POST**  | `/api/orders`  | `{car, name, phone}` | Create new booking                   | [See payload example](#)         |
+| **GET**   | `/images/*`    | -                    | Access car images                    | `/images/3.jpg`  
+
+
+// Request Payload
+{
+  "car": "Lamborghini",
+  "name": "John Smith",
+  "phone": "+971501234567"
+}
+
+// Success Response
+{
+  "success": true,
+  "orderId": "ORD-789012",
+  "message": "Booking confirmed! We'll contact you shortly."
+}
+
+<style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 25px 0;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+  }
+  th {
+    background-color: #2c3e50;
+    color: white;
+    text-transform: uppercase;
+  }
+  td, th {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #dddddd;
+  }
+  tr:hover {
+    background-color: #f5f5f5;
+  }
+</style>
 
 ## Setup
 
