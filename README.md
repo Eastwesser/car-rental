@@ -127,6 +127,7 @@ docker exec -it 779793098e50 psql -U postgres -d carsharing
 5. SQL:
 
 ```sql
+# ASCEND ^, DESCEND v
 SELECT * FROM orders ORDER BY created_at DESC LIMIT 5;
 ```
 
